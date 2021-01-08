@@ -13,7 +13,7 @@ resource "aws_cloudwatch_metric_alarm" "cluster_status_is_red" {
   count               = var.monitor_cluster_status_is_red ? 1 : 0
   alarm_name          = "${var.alarm_name_prefix}ElasticSearch-ClusterStatusIsRed${var.alarm_name_postfix}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "1"
+  evaluation_periods  = "2"
   datapoints_to_alarm = "2"
   metric_name         = "ClusterStatus.red"
   namespace           = "AWS/ES"
