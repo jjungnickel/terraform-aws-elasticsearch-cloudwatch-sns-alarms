@@ -13,7 +13,7 @@ resource "aws_cloudwatch_metric_alarm" "cluster_status_is_red" {
   count               = var.monitor_cluster_status_is_red ? 1 : 0
   alarm_name          = "${var.alarm_name_prefix}ElasticSearch-ClusterStatusIsRed${var.alarm_name_postfix}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "1"
+  evaluation_periods  = "2"
   metric_name         = "ClusterStatus.red"
   namespace           = "AWS/ES"
   period              = "60"
@@ -164,7 +164,7 @@ resource "aws_cloudwatch_metric_alarm" "jvm_memory_pressure_too_high" {
   metric_name         = "JVMMemoryPressure"
   namespace           = "AWS/ES"
   period              = "900"
-  statistic           = "Maximum"
+  extended_statistic  = "p90"
   threshold           = local.thresholds["JVMMemoryPressureThreshold"]
   alarm_description   = "Elasticsearch JVM memory pressure is too high over last 15 minutes"
   alarm_actions       = [local.aws_sns_topic_arn]
